@@ -197,6 +197,7 @@
     if (state.mode === 'attract') state.shieldTarget = nearestThreatAngle();
     if (keys.left) state.shieldTarget -= C.SHIELD_KEY_SPEED * dt;
     if (keys.right) state.shieldTarget += C.SHIELD_KEY_SPEED * dt;
+    const prevShield = state.shield;
     state.shield += Logic.angleDiff(state.shieldTarget, state.shield) * Math.min(1, dt * (state.mode === 'attract' ? 7 : 20));
     state.shieldFlash = Math.max(0, state.shieldFlash - dt * 4);
     state.coreFlash = Math.max(0, state.coreFlash - dt * 2);
@@ -236,9 +237,12 @@
       t.trail.push(t.x, t.y); if (t.trail.length > 16) t.trail.splice(0, 2);
 
       const dc = Math.hypot(t.x - cx, t.y - cy);
+      // hotet kan träffas så länge det är i zonen kring brandväggen, även om skölden svängs dit i efterhand
+      const innerEdge = rShield - (rShield - rNode) * 0.5;
+      if (!t.passed && dc < innerEdge) t.passed = true;
       if (!t.passed && dc <= rShield + t.size * 0.5 && t.kb === 0) {
         const ang = Math.atan2(t.y - cy, t.x - cx);
-        if (Logic.isBlocked(ang, state.shield, shieldArc())) {
+        if (Logic.isSwept(ang, prevShield, state.shield, shieldArc())) {
           t.hp--; state.shieldFlash = 1; sfx.block();
           burst(t.x, t.y, t.type.color, t.hp > 0 ? 0.5 : 1);
           if (t.hp > 0) { t.kb = 420 * (S / 800); }
@@ -253,7 +257,7 @@
               sfx.kill();
             }
           }
-        } else t.passed = true;
+        }
       }
       if (!t.dead && Math.hypot(n.x - t.x, n.y - t.y) < nodeSize) {
         t.dead = true; n.flash = 1; burst(t.x, t.y, '#FF5A3C', 1.2);

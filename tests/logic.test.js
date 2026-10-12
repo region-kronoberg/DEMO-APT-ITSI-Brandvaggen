@@ -16,6 +16,13 @@ test('brandväggen blockerar inom sin bredd och släpper igenom utanför', () =>
   assert.equal(L.isBlocked(deg(355), deg(10), 70), true); // över nollan
 });
 
+test('brandväggen träffar hot den sveper över, även vid snabb vridning', () => {
+  assert.equal(L.isSwept(deg(90), deg(0), deg(180), 70), true); // passerade rakt över
+  assert.equal(L.isSwept(deg(90), deg(180), deg(0), 70), true); // åt andra hållet
+  assert.equal(L.isSwept(deg(30), deg(0), deg(0), 70), true); // stilla, inom bredden
+  assert.equal(L.isSwept(deg(270), deg(0), deg(90), 70), false); // svepte inte dit
+});
+
 test('nya hot dyker upp först i rätt våg', () => {
   const ids = (w) => L.threatsForWave(C.THREATS, w).map((t) => t.id);
   assert.ok(ids(1).every((id) => C.THREATS.find((t) => t.id === id).fromWave <= 1));

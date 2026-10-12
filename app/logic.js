@@ -15,6 +15,14 @@ const Logic = {
     return Math.abs(Logic.angleDiff(threatAngle, shieldAngle)) <= half;
   },
 
+  // Svepte brandväggen över hotet när den vreds från prevAngle till shieldAngle?
+  isSwept(threatAngle, prevAngle, shieldAngle, arcDeg) {
+    const half = (arcDeg * Math.PI) / 180 / 2;
+    const d = Logic.angleDiff(threatAngle, prevAngle);
+    const moved = Logic.angleDiff(shieldAngle, prevAngle);
+    return d >= Math.min(0, moved) - half && d <= Math.max(0, moved) + half;
+  },
+
   // Vilka hot finns i en viss våg?
   threatsForWave(threats, wave) {
     return threats.filter((t) => t.fromWave <= wave);
