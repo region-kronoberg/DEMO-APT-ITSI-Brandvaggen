@@ -22,6 +22,10 @@ test('det finns noder att skydda, med korta namn', () => {
   for (const n of C.NODES) assert.ok(n.short.length <= 4, `Kortnamnet "${n.short}" är för långt (max 4 tecken)`);
 });
 
+test('Växjö sjukhus visas med kortnamnet VS', () => {
+  assert.ok(C.NODES.some((n) => n.name === 'Växjö sjukhus' && n.short === 'VS'));
+});
+
 test('varje hot är korrekt definierat', () => {
   const ids = new Set();
   for (const t of C.THREATS) {
