@@ -26,7 +26,7 @@ const CONFIG = {
 
   // Det som ska skyddas
   NODES: [
-    { name: 'Centrallasarettet Växjö', short: 'CLV' },
+    { name: 'Växjö sjukhus', short: 'VS' },
     { name: 'Ljungby lasarett', short: 'LJL' },
     { name: 'Vårdcentraler', short: 'VC' },
     { name: '1177', short: '1177' },

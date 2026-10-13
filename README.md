@@ -1,7 +1,7 @@
 # Brandväggen
 
 Ett litet webbläsarspel som demoapp för Git, GitHub, CI/CD och Docker.
-Du styr regionens brandvägg och stoppar nätfiske, skadekod, DDoS, ransomware och zero-day-attacker innan de når Centrallasarettet, Ljungby lasarett, vårdcentralerna och de andra noderna.
+Du styr regionens brandvägg och stoppar nätfiske, skadekod, DDoS, ransomware och zero-day-attacker innan de når Växjö sjukhus, Ljungby lasarett, vårdcentralerna och de andra noderna.
 
 ## Spela
 
