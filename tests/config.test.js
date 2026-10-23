@@ -26,6 +26,10 @@ test('Växjö sjukhus visas med kortnamnet VS', () => {
   assert.ok(C.NODES.some((n) => n.name === 'Växjö sjukhus' && n.short === 'VS'));
 });
 
+test('Ljungby sjukhus visas med kortnamnet LS', () => {
+  assert.ok(C.NODES.some((n) => n.name === 'Ljungby sjukhus' && n.short === 'LS'));
+});
+
 test('varje hot är korrekt definierat', () => {
   const ids = new Set();
   for (const t of C.THREATS) {
